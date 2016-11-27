@@ -3,6 +3,10 @@ import java.util.*;
  * Akash Patel
  * CS 251L
  * Project: Bubble Shooter (Part 1): BubbleManager.java
+ *
+ * This class doesn't output anything. The testing is left to the BubbleManagerTest.java class.
+ * This class implements various methods to add, remove, and detect "random bubbles"
+ * in the console. This class is the logic behind the BubbleShooter game.
  */
 public class BubbleManager {
     private List<List<String>> grid;
@@ -12,7 +16,6 @@ public class BubbleManager {
     private Boolean[][] markVisited;
     private StringBuilder sb;
     private Random rand;
-    private Boolean floating;
     private int matchingClusterCount;
     private int floatingClusterCount;
     private int rNum;
@@ -20,13 +23,14 @@ public class BubbleManager {
     private int numCols;
     private int numBubbleTypes;
 
+    //creates new pseudorandom number
     public BubbleManager() {
         rand = new Random();
         rand.setSeed(2);
         resetVisitedToFalse();
     }
 
-
+    //creates a new board using a list of lists
     public void createBoard(){
         grid = new ArrayList<List<String>>();
 
@@ -43,7 +47,7 @@ public class BubbleManager {
         updateStringBoard();
     }
 
-
+    //adds a bubble to the designated row and column of the list of lists
     public void addBubble(int r, int c){
         setrNum(random(numBubbleTypes));
 
@@ -62,6 +66,11 @@ public class BubbleManager {
         updateStringBoard();
     }
 
+    /**
+     * Recursively finds matching bubble clusters and adds their x,y coordinates
+     * to the x and y lists. The recursion begins from the location that
+     * a new bubble was added
+     */
     public void findMatchingCluster(int r, int c){
         // check left
         if(c - 1 >= 0) {
@@ -190,6 +199,11 @@ public class BubbleManager {
         }
     }
 
+    /**
+     * Recursively finds matching/non-matching/single bubble clusters and adds their (x, y)
+     * coordinates to the x and y lists. The recursion begins from the location that
+     * a new bubble was added
+     */
     public void findGeneralCluster(int r, int c){
         // check left
         if(c - 1 >= 0) {
@@ -324,23 +338,11 @@ public class BubbleManager {
         }
     }
 
-    public void findAndRemoveFloatingCluster(){
-        int clusterCount = 0;
-
-        for(int i = 0; i < numCols; i++) {
-            findGeneralCluster(numRows - 1, i);
-            removeFloatingCluster();
-            clusterCount += floatingClusterCount;
-        }
-        for(int j = 0; j < numRows; j++) {
-            findGeneralCluster(j, 0);
-            removeFloatingCluster();
-            clusterCount += floatingClusterCount;
-        }
-
-        floatingClusterCount = clusterCount;
-    }
-
+    /**
+     * This method is paired with the findMatchingCluster method.
+     * It removes any cluster that have 3 or more bubbles in it then
+     * it updates the number of rows if necessary
+     */
     public void removeCluster(){
         int count;
 
@@ -367,8 +369,12 @@ public class BubbleManager {
         updateStringBoard();
     }
 
+    /**
+     * Loops through the (x, y) coordinate lists and checks if the clusters are connected
+     * to the "ceiling" if they are do nothing, if they are floating then remove them.
+     */
     public void removeFloatingCluster(){
-        floating = true;
+        Boolean floating = true;
         floatingClusterCount = 0;
         int count;
 
@@ -403,6 +409,27 @@ public class BubbleManager {
         //System.out.print("y: " + y + "\n");
 
         updateStringBoard();
+    }
+
+    /**
+     * Implements the findGeneralCluster and removeFloatingCluster methods
+     * by inputing the entire first column and last row
+     */
+    public void findAndRemoveFloatingCluster(){
+        int clusterCount = 0;
+
+        for(int i = 0; i < numCols; i++) {
+            findGeneralCluster(numRows - 1, i);
+            removeFloatingCluster();
+            clusterCount += floatingClusterCount;
+        }
+        for(int j = 0; j < numRows; j++) {
+            findGeneralCluster(j, 0);
+            removeFloatingCluster();
+            clusterCount += floatingClusterCount;
+        }
+
+        floatingClusterCount = clusterCount;
     }
 
     private void resetVisitedToFalse(){
@@ -485,14 +512,6 @@ public class BubbleManager {
 
     public int getFloatingClusterCount() {
         return floatingClusterCount;
-    }
-
-    public int getNumRows() {
-        return numRows;
-    }
-
-    public int getNumCols() {
-        return numCols;
     }
 
     private void setrNum(int rNum) {

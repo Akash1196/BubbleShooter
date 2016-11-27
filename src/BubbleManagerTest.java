@@ -2,6 +2,11 @@
  * Akash Patel
  * CS 251L
  * Project: Bubble Shooter (Part 1): BubbleManagerTest.java
+ *
+ * This is the testing class modeled relatively close to the example output provided
+ * The seed for the random number generator is different than the example therefore,
+ * the "bubbles" at the locations are different but this testing class accurately
+ * shows all the required functionality of the BubbleManager class.
  */
 public class BubbleManagerTest {
     public static void main(String[] args){
