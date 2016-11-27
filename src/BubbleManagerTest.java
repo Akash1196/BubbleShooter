@@ -1,5 +1,7 @@
 /**
- * Created by Akash1196 on 11/17/2016.
+ * Akash Patel
+ * CS 251L
+ * Project: Bubble Shooter (Part 1): BubbleManagerTest.java
  */
 public class BubbleManagerTest {
     public static void main(String[] args){
