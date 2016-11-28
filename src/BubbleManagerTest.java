@@ -24,9 +24,9 @@ public class BubbleManagerTest {
         bm1.addBubble(7, 8);
         System.out.print("add new bubble at (7, 8)\n" + bm1.getStringBoard() + "\n");
 
-        bm1.findMatchingCluster(7, 8);
+        bm1.findCluster(7, 8, true);
         System.out.print(bm1.getClusterCount() + " bubbles match.\n");
-        bm1.removeCluster();
+        bm1.removeMatchingCluster();
         System.out.print("Remove matching bubbles\n" + bm1.getStringBoard() + "\n");
 
         bm1.findAndRemoveFloatingCluster();
@@ -36,9 +36,9 @@ public class BubbleManagerTest {
         bm1.addBubble(2, 9);
         System.out.print("add new bubble at (2, 9)\n" + bm1.getStringBoard() + "\n");
 
-        bm1.findMatchingCluster(2, 9);
+        bm1.findCluster(2, 9, true);
         System.out.print(bm1.getClusterCount() + " bubbles match.\n");
-        bm1.removeCluster();
+        bm1.removeMatchingCluster();
         System.out.print("Remove matching bubbles\n" + bm1.getStringBoard() + "\n");
 
         bm1.findAndRemoveFloatingCluster();
@@ -60,17 +60,17 @@ public class BubbleManagerTest {
         bm2.addBubble(6, 4);
         System.out.print("add new bubble at (6, 4)\n" + bm2.getStringBoard() + "\n");
 
-        bm2.findMatchingCluster(6, 4);
+        bm2.findCluster(6, 4, true);
         System.out.print(bm2.getClusterCount() + " bubbles match.\n");
-        bm2.removeCluster();
+        bm2.removeMatchingCluster();
         System.out.print("Remove matching bubbles\n" + bm2.getStringBoard() + "\n");
 
         bm2.addBubble(6, 5);
         System.out.print("add new bubble at (6, 5)\n" + bm2.getStringBoard() + "\n");
 
-        bm2.findMatchingCluster(6, 5);
+        bm2.findCluster(6, 5, true);
         System.out.print(bm2.getClusterCount() + " bubbles match.\n");
-        bm2.removeCluster();
+        bm2.removeMatchingCluster();
         System.out.print("Remove matching bubbles\n" + bm2.getStringBoard() + "\n");
 
         bm2.findAndRemoveFloatingCluster();
@@ -80,9 +80,9 @@ public class BubbleManagerTest {
         bm2.addBubble(5, 3);
         System.out.print("add new bubble at (5, 3)\n" + bm2.getStringBoard() + "\n");
 
-        bm2.findMatchingCluster(5, 3);
+        bm2.findCluster(5, 3, true);
         System.out.print(bm2.getClusterCount() + " bubbles match.\n");
-        bm2.removeCluster();
+        bm2.removeMatchingCluster();
         System.out.print("Remove matching bubbles\n" + bm2.getStringBoard() + "\n");
 
         bm2.findAndRemoveFloatingCluster();
@@ -96,17 +96,17 @@ public class BubbleManagerTest {
         bm1.addBubble(7, 1);
         System.out.print("add new bubble at (7, 1)\n" + bm1.getStringBoard() + "\n");
 
-        bm1.findMatchingCluster(7, 1);
+        bm1.findCluster(7, 1, true);
         System.out.print(bm1.getClusterCount() + " bubbles match.\n");
-        bm1.removeCluster();
+        bm1.removeMatchingCluster();
         System.out.print("Remove matching bubbles\n" + bm1.getStringBoard() + "\n");
 
         bm1.addBubble(7, 0);
         System.out.print("add new bubble at (7, 0)\n" + bm1.getStringBoard() + "\n");
 
-        bm1.findMatchingCluster(7, 0);
+        bm1.findCluster(7, 0, true);
         System.out.print(bm1.getClusterCount() + " bubbles match.\n");
-        bm1.removeCluster();
+        bm1.removeMatchingCluster();
         System.out.print("Remove matching bubbles\n" + bm1.getStringBoard() + "\n");
 
         bm1.findAndRemoveFloatingCluster();

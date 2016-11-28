@@ -23,14 +23,14 @@ public class BubbleManager {
     private int numCols;
     private int numBubbleTypes;
 
-    //creates new pseudorandom number
     public BubbleManager() {
         rand = new Random();
         rand.setSeed(2);
-        resetVisitedToFalse();
     }
 
-    //creates a new board using a list of lists
+    /**
+     * Creates a new board using a list of lists
+     */
     public void createBoard(){
         grid = new ArrayList<List<String>>();
 
@@ -38,7 +38,7 @@ public class BubbleManager {
             row = new ArrayList<String>();
 
             for(int j = 0; j < numCols; j++){
-                setrNum(random(numBubbleTypes));
+                rNum = random(numBubbleTypes);
                 row.add(getBubbleType() + " ");
             }
             grid.add(row);
@@ -47,9 +47,11 @@ public class BubbleManager {
         updateStringBoard();
     }
 
-    //adds a bubble to the designated row and column of the list of lists
+    /**
+     * Adds a bubble to the designated row and column of the list of lists
+     */
     public void addBubble(int r, int c){
-        setrNum(random(numBubbleTypes));
+        rNum = random(numBubbleTypes);
 
         if(r >= numRows){
             numRows = r + 1;
@@ -67,20 +69,31 @@ public class BubbleManager {
     }
 
     /**
-     * Recursively finds matching bubble clusters and adds their x,y coordinates
-     * to the x and y lists. The recursion begins from the location that
-     * a new bubble was added
+     * Takes 3 parameters: r and c are the starting locations for the recursion
+     *                     matchType is the value that determines if matching or non-matching
+     *                     cluster should be found
+     *
+     * Adds the row and column locations of the bubbles in a cluster to the x and y lists
      */
-    public void findMatchingCluster(int r, int c){
+    public void findCluster(int r, int c, Boolean matchType){
         // check left
         if(c - 1 >= 0) {
             if (grid.get(r).get(c - 1) != null && !markVisited[r][c - 1]) { // test if target cell is not visited
                 markVisited[r][c - 1] = true; // mark the current node as visited
-                if (grid.get(r).get(c - 1).equals(grid.get(r).get(c))) {
-                    x.add(r);
-                    y.add(c - 1);
-                    matchingClusterCount++;
-                    findMatchingCluster(r, c - 1);
+                if(matchType){
+                    if (grid.get(r).get(c - 1).equals(grid.get(r).get(c))) {
+                        x.add(r);
+                        y.add(c - 1);
+                        matchingClusterCount++;
+                        findCluster(r, c - 1, true);
+                    }
+                }
+                else {
+                    if (!grid.get(r).get(c - 1).equals("  ") && !grid.get(r).get(c).equals("  ")) {
+                        x.add(r);
+                        y.add(c - 1);
+                        findCluster(r, c - 1, false);
+                    }
                 }
             }
         }
@@ -88,25 +101,53 @@ public class BubbleManager {
         if(c + 1 < numCols) {
             if (grid.get(r).get(c + 1) != null && !markVisited[r][c + 1]) { // test if target cell is not visited
                 markVisited[r][c + 1] = true; // mark the current node as visited
-                if (grid.get(r).get(c + 1).equals(grid.get(r).get(c))) {
-                    x.add(r);
-                    y.add(c + 1);
-                    matchingClusterCount++;
-                    findMatchingCluster(r, c + 1);
+                if(matchType){
+                    if (grid.get(r).get(c + 1).equals(grid.get(r).get(c))) {
+                        x.add(r);
+                        y.add(c + 1);
+                        matchingClusterCount++;
+                        findCluster(r, c + 1, true);
+                    }
+                }
+                else {
+                    if (!grid.get(r).get(c + 1).equals("  ") && !grid.get(r).get(c).equals("  ")) {
+                        x.add(r);
+                        y.add(c + 1);
+                        findCluster(r, c + 1, false);
+                    }
                 }
             }
         }
         // check if row is indented or not
         if(r % 2 == 1) {
+            // check lone bubble
+            if(!matchType) {
+                if (r - 1 >= 0 && c + 1 < numCols && c - 1 >= 0) {
+                    if (grid.get(r - 1).get(c).equals("  ") && !grid.get(r).get(c).equals("  ") && grid.get(r - 1).get(c + 1).equals("  ")
+                            && grid.get(r).get(c - 1).equals("  ") && grid.get(r).get(c + 1).equals("  ")) {
+                        x.add(r);
+                        y.add(c);
+                    }
+                }
+            }
             // check top left
             if(r - 1 >= 0) {
                 if (grid.get(r - 1).get(c) != null && !markVisited[r - 1][c]) { // test if target cell is not visited
                     markVisited[r - 1][c] = true; // mark the current node as visited
-                    if (grid.get(r - 1).get(c).equals(grid.get(r).get(c))) {
-                        x.add(r - 1);
-                        y.add(c);
-                        matchingClusterCount++;
-                        findMatchingCluster(r - 1, c);
+                    if(matchType){
+                        if (grid.get(r - 1).get(c).equals(grid.get(r).get(c))) {
+                            x.add(r - 1);
+                            y.add(c);
+                            matchingClusterCount++;
+                            findCluster(r - 1, c, true);
+                        }
+                    }
+                    else {
+                        if (!grid.get(r - 1).get(c).equals("  ") && !grid.get(r).get(c).equals("  ")) {
+                            x.add(r - 1);
+                            y.add(c);
+                            findCluster(r - 1, c, false);
+                        }
                     }
                 }
             }
@@ -114,11 +155,20 @@ public class BubbleManager {
             if(r - 1 >= 0 && c + 1 < numCols) {
                 if (grid.get(r - 1).get(c + 1) != null && !markVisited[r - 1][c + 1]) { // test if target cell is not visited
                     markVisited[r - 1][c + 1] = true; // mark the current node as visited
-                    if (grid.get(r - 1).get(c + 1).equals(grid.get(r).get(c))) {
-                        x.add(r - 1);
-                        y.add(c + 1);
-                        matchingClusterCount++;
-                        findMatchingCluster(r - 1, c + 1);
+                    if(matchType){
+                        if (grid.get(r - 1).get(c + 1).equals(grid.get(r).get(c))) {
+                            x.add(r - 1);
+                            y.add(c + 1);
+                            matchingClusterCount++;
+                            findCluster(r - 1, c + 1, true);
+                        }
+                    }
+                    else {
+                        if (!grid.get(r - 1).get(c + 1).equals("  ") && !grid.get(r).get(c).equals("  ")) {
+                            x.add(r - 1);
+                            y.add(c + 1);
+                            findCluster(r - 1, c + 1, false);
+                        }
                     }
                 }
             }
@@ -126,11 +176,20 @@ public class BubbleManager {
             if(r + 1 < numRows) {
                 if (grid.get(r + 1).get(c) != null && !markVisited[r + 1][c]) { // test if target cell is not visited
                     markVisited[r + 1][c] = true; // mark the current node as visited
-                    if (grid.get(r + 1).get(c).equals(grid.get(r).get(c))) {
-                        x.add(r + 1);
-                        y.add(c);
-                        matchingClusterCount++;
-                        findMatchingCluster(r + 1, c);
+                    if(matchType){
+                        if (grid.get(r + 1).get(c).equals(grid.get(r).get(c))) {
+                            x.add(r + 1);
+                            y.add(c);
+                            matchingClusterCount++;
+                            findCluster(r + 1, c, true);
+                        }
+                    }
+                    else {
+                        if (!grid.get(r + 1).get(c).equals("  ") && !grid.get(r).get(c).equals("  ")) {
+                            x.add(r + 1);
+                            y.add(c);
+                            findCluster(r + 1, c, false);
+                        }
                     }
                 }
             }
@@ -138,25 +197,53 @@ public class BubbleManager {
             if(r + 1 < numRows && c + 1 < numCols) {
                 if (grid.get(r + 1).get(c + 1) != null && !markVisited[r + 1][c + 1]) { // test if target cell is not visited
                     markVisited[r + 1][c + 1] = true; // mark the current node as visited
-                    if (grid.get(r + 1).get(c + 1).equals(grid.get(r).get(c))) {
-                        x.add(r + 1);
-                        y.add(c + 1);
-                        matchingClusterCount++;
-                        findMatchingCluster(r + 1, c + 1);
+                    if(matchType){
+                        if (grid.get(r + 1).get(c + 1).equals(grid.get(r).get(c))) {
+                            x.add(r + 1);
+                            y.add(c + 1);
+                            matchingClusterCount++;
+                            findCluster(r + 1, c + 1, true);
+                        }
+                    }
+                    else {
+                        if (!grid.get(r + 1).get(c + 1).equals("  ") && !grid.get(r).get(c).equals("  ")) {
+                            x.add(r + 1);
+                            y.add(c + 1);
+                            findCluster(r + 1, c + 1, false);
+                        }
                     }
                 }
             }
         }
         else{
+            // check lone bubble
+            if(!matchType) {
+                if (r - 1 >= 0 && c + 1 < numCols && c - 1 >= 0) {
+                    if (grid.get(r - 1).get(c - 1).equals("  ") && !grid.get(r).get(c).equals("  ") && grid.get(r - 1).get(c).equals("  ")
+                            && grid.get(r).get(c - 1).equals("  ") && grid.get(r).get(c + 1).equals("  ")) {
+                        x.add(r);
+                        y.add(c);
+                    }
+                }
+            }
             // check top left
             if(r - 1 >= 0 && c - 1 >= 0) {
                 if (grid.get(r - 1).get(c - 1) != null && !markVisited[r - 1][c - 1]) { // test if target cell is not visited
                     markVisited[r - 1][c - 1] = true; // mark the current node as visited
-                    if (grid.get(r - 1).get(c - 1).equals(grid.get(r).get(c))) {
-                        x.add(r - 1);
-                        y.add(c - 1);
-                        matchingClusterCount++;
-                        findMatchingCluster(r - 1, c - 1);
+                    if(matchType){
+                        if (grid.get(r - 1).get(c - 1).equals(grid.get(r).get(c))) {
+                            x.add(r - 1);
+                            y.add(c - 1);
+                            matchingClusterCount++;
+                            findCluster(r - 1, c - 1, true);
+                        }
+                    }
+                    else {
+                        if (!grid.get(r - 1).get(c - 1).equals("  ") && !grid.get(r).get(c).equals("  ")) {
+                            x.add(r - 1);
+                            y.add(c - 1);
+                            findCluster(r - 1, c - 1, false);
+                        }
                     }
                 }
             }
@@ -164,11 +251,20 @@ public class BubbleManager {
             if(r - 1 >= 0) {
                 if (grid.get(r - 1).get(c) != null && !markVisited[r - 1][c]) { // test if target cell is not visited
                     markVisited[r - 1][c] = true; // mark the current node as visited
-                    if (grid.get(r - 1).get(c).equals(grid.get(r).get(c))) {
-                        x.add(r - 1);
-                        y.add(c);
-                        matchingClusterCount++;
-                        findMatchingCluster(r - 1, c);
+                    if(matchType){
+                        if (grid.get(r - 1).get(c).equals(grid.get(r).get(c))) {
+                            x.add(r - 1);
+                            y.add(c);
+                            matchingClusterCount++;
+                            findCluster(r - 1, c, true);
+                        }
+                    }
+                    else {
+                        if (!grid.get(r - 1).get(c).equals("  ") && !grid.get(r).get(c).equals("  ")) {
+                            x.add(r - 1);
+                            y.add(c);
+                            findCluster(r - 1, c, false);
+                        }
                     }
                 }
             }
@@ -176,11 +272,20 @@ public class BubbleManager {
             if(r + 1 < numRows && c - 1 >= 0) {
                 if (grid.get(r + 1).get(c - 1) != null && !markVisited[r + 1][c - 1]) { // test if target cell is not visited
                     markVisited[r + 1][c - 1] = true; // mark the current node as visited
-                    if (grid.get(r + 1).get(c - 1).equals(grid.get(r).get(c))) {
-                        x.add(r + 1);
-                        y.add(c - 1);
-                        matchingClusterCount++;
-                        findMatchingCluster(r + 1, c - 1);
+                    if(matchType){
+                        if (grid.get(r + 1).get(c - 1).equals(grid.get(r).get(c))) {
+                            x.add(r + 1);
+                            y.add(c - 1);
+                            matchingClusterCount++;
+                            findCluster(r + 1, c - 1, true);
+                        }
+                    }
+                    else {
+                        if (!grid.get(r + 1).get(c - 1).equals("  ") && !grid.get(r).get(c).equals("  ")) {
+                            x.add(r + 1);
+                            y.add(c - 1);
+                            findCluster(r + 1, c - 1, false);
+                        }
                     }
                 }
             }
@@ -188,150 +293,20 @@ public class BubbleManager {
             if(r + 1 < numRows) {
                 if (grid.get(r + 1).get(c) != null && !markVisited[r + 1][c]) { // test if target cell is not visited
                     markVisited[r + 1][c] = true; // mark the current node as visited
-                    if (grid.get(r + 1).get(c).equals(grid.get(r).get(c))) {
-                        x.add(r + 1);
-                        y.add(c);
-                        matchingClusterCount++;
-                        findMatchingCluster(r + 1, c);
+                    if(matchType){
+                        if (grid.get(r + 1).get(c).equals(grid.get(r).get(c))) {
+                            x.add(r + 1);
+                            y.add(c);
+                            matchingClusterCount++;
+                            findCluster(r + 1, c, true);
+                        }
                     }
-                }
-            }
-        }
-    }
-
-    /**
-     * Recursively finds matching/non-matching/single bubble clusters and adds their (x, y)
-     * coordinates to the x and y lists. The recursion begins from the location that
-     * a new bubble was added
-     */
-    public void findGeneralCluster(int r, int c){
-        // check left
-        if(c - 1 >= 0) {
-            if (grid.get(r).get(c - 1) != null && !markVisited[r][c - 1]) { // test if target cell is not visited
-                markVisited[r][c - 1] = true; // mark the current node as visited
-                if (!grid.get(r).get(c - 1).equals("  ") && !grid.get(r).get(c).equals("  ")) {
-                    x.add(r);
-                    y.add(c - 1);
-                    findGeneralCluster(r, c - 1);
-                }
-            }
-        }
-        // check right
-        if(c + 1 < numCols) {
-            if (grid.get(r).get(c + 1) != null && !markVisited[r][c + 1]) { // test if target cell is not visited
-                markVisited[r][c + 1] = true; // mark the current node as visited
-                if (!grid.get(r).get(c + 1).equals("  ") && !grid.get(r).get(c).equals("  ")) {
-                    x.add(r);
-                    y.add(c + 1);
-                    findGeneralCluster(r, c + 1);
-                }
-            }
-        }
-        // check if row is indented or not
-        if(r % 2 == 1) {
-            // check lone bubble
-            if(r - 1 >= 0 && c + 1 < numCols && c - 1 >= 0) {
-                if (grid.get(r - 1).get(c).equals("  ") && !grid.get(r).get(c).equals("  ") && grid.get(r - 1).get(c + 1).equals("  ")
-                        && grid.get(r).get(c - 1).equals("  ") && grid.get(r).get(c + 1).equals("  ")) {
-                    x.add(r);
-                    y.add(c);
-                }
-            }
-            // check top left
-            if(r - 1 >= 0) {
-                if (grid.get(r - 1).get(c) != null && !markVisited[r - 1][c]) { // test if target cell is not visited
-                    markVisited[r - 1][c] = true; // mark the current node as visited
-                    if (!grid.get(r - 1).get(c).equals("  ") && !grid.get(r).get(c).equals("  ")) {
-                        x.add(r - 1);
-                        y.add(c);
-                        findGeneralCluster(r - 1, c);
-                    }
-                }
-            }
-            // check top right
-            if(r - 1 >= 0 && c + 1 < numCols) {
-                if (grid.get(r - 1).get(c + 1) != null && !markVisited[r - 1][c + 1]) { // test if target cell is not visited
-                    markVisited[r - 1][c + 1] = true; // mark the current node as visited
-                    if (!grid.get(r - 1).get(c + 1).equals("  ") && !grid.get(r).get(c).equals("  ")) {
-                        x.add(r - 1);
-                        y.add(c + 1);
-                        findGeneralCluster(r - 1, c + 1);
-                    }
-                }
-            }
-            // check bottom left
-            if(r + 1 < numRows) {
-                if (grid.get(r + 1).get(c) != null && !markVisited[r + 1][c]) { // test if target cell is not visited
-                    markVisited[r + 1][c] = true; // mark the current node as visited
-                    if (!grid.get(r + 1).get(c).equals("  ") && !grid.get(r).get(c).equals("  ")) {
-                        x.add(r + 1);
-                        y.add(c);
-                        findGeneralCluster(r + 1, c);
-                    }
-                }
-            }
-            // check bottom right
-            if(r + 1 < numRows && c + 1 < numCols) {
-                if (grid.get(r + 1).get(c + 1) != null && !markVisited[r + 1][c + 1]) { // test if target cell is not visited
-                    markVisited[r + 1][c + 1] = true; // mark the current node as visited
-                    if (!grid.get(r + 1).get(c + 1).equals("  ") && !grid.get(r).get(c).equals("  ")) {
-                        x.add(r + 1);
-                        y.add(c + 1);
-                        findGeneralCluster(r + 1, c + 1);
-                    }
-                }
-            }
-        }
-        else{
-            // check lone bubble
-            if(r - 1 >= 0 && c + 1 < numCols && c - 1 >= 0) {
-                if (grid.get(r - 1).get(c - 1).equals("  ") && !grid.get(r).get(c).equals("  ") && grid.get(r - 1).get(c).equals("  ")
-                        && grid.get(r).get(c - 1).equals("  ") && grid.get(r).get(c + 1).equals("  ")) {
-                    x.add(r);
-                    y.add(c);
-                    }
-            }
-            // check top left
-            if(r - 1 >= 0 && c - 1 >= 0) {
-                if (grid.get(r - 1).get(c - 1) != null && !markVisited[r - 1][c - 1]) { // test if target cell is not visited
-                    markVisited[r - 1][c - 1] = true; // mark the current node as visited
-                    if (!grid.get(r - 1).get(c - 1).equals("  ") && !grid.get(r).get(c).equals("  ")) {
-                        x.add(r - 1);
-                        y.add(c - 1);
-                        findGeneralCluster(r - 1, c - 1);
-                    }
-                }
-            }
-            // check top right
-            if(r - 1 >= 0) {
-                if (grid.get(r - 1).get(c) != null && !markVisited[r - 1][c]) { // test if target cell is not visited
-                    markVisited[r - 1][c] = true; // mark the current node as visited
-                    if (!grid.get(r - 1).get(c).equals("  ") && !grid.get(r).get(c).equals("  ")) {
-                        x.add(r - 1);
-                        y.add(c);
-                        findGeneralCluster(r - 1, c);
-                    }
-                }
-            }
-            // check bottom left
-            if(r + 1 < numRows && c - 1 >= 0) {
-                if (grid.get(r + 1).get(c - 1) != null && !markVisited[r + 1][c - 1]) { // test if target cell is not visited
-                    markVisited[r + 1][c - 1] = true; // mark the current node as visited
-                    if (!grid.get(r + 1).get(c - 1).equals("  ") && !grid.get(r).get(c).equals("  ")) {
-                        x.add(r + 1);
-                        y.add(c - 1);
-                        findGeneralCluster(r + 1, c - 1);
-                    }
-                }
-            }
-            // check bottom right
-            if(r + 1 < numRows) {
-                if (grid.get(r + 1).get(c) != null && !markVisited[r + 1][c]) { // test if target cell is not visited
-                    markVisited[r + 1][c] = true; // mark the current node as visited
-                    if (!grid.get(r + 1).get(c).equals("  ") && !grid.get(r).get(c).equals("  ")) {
-                        x.add(r + 1);
-                        y.add(c);
-                        findGeneralCluster(r + 1, c);
+                    else {
+                        if (!grid.get(r + 1).get(c).equals("  ") && !grid.get(r).get(c).equals("  ")) {
+                            x.add(r + 1);
+                            y.add(c);
+                            findCluster(r + 1, c, false);
+                        }
                     }
                 }
             }
@@ -343,27 +318,12 @@ public class BubbleManager {
      * It removes any cluster that have 3 or more bubbles in it then
      * it updates the number of rows if necessary
      */
-    public void removeCluster(){
-        int count;
-
+    public void removeMatchingCluster(){
         if(matchingClusterCount >= 3) {
             for (int i = 0; i < x.size(); i++) {
                 grid.get(x.get(i)).set(y.get(i), "  ");
             }
-            // if a row is empty then remove it from the grid and update instance variable
-            for(int j = 0; j < numRows; j ++){
-                count = 0;
-                for(int k = 0; k < numCols; k++){
-                    if(grid.get(j).get(k).equals("  ")){
-                        count++;
-                        if(count == numCols){
-                            grid.remove(j);
-                            numRows--;
-                            break;
-                        }
-                    }
-                }
-            }
+            removeEmptyRows();
         }
 
         updateStringBoard();
@@ -376,7 +336,6 @@ public class BubbleManager {
     public void removeFloatingCluster(){
         Boolean floating = true;
         floatingClusterCount = 0;
-        int count;
 
         for (int i = 0; i < x.size(); i++) {
             if (x.get(i) == 0) {
@@ -389,47 +348,49 @@ public class BubbleManager {
                 floatingClusterCount++;
                 grid.get(x.get(j)).set(y.get(j), "  ");
             }
-            // if a row is empty then remove it from the grid and update instance variable
-            for(int j = 0; j < numRows; j ++){
-                count = 0;
-                for(int k = 0; k < numCols; k++){
-                    if(grid.get(j).get(k).equals("  ")){
-                        count++;
-                        if(count == numCols){
-                            grid.remove(j);
-                            numRows--;
-                            break;
-                        }
-                    }
-                }
-            }
+            removeEmptyRows();
         }
-
-        //System.out.print("\nx: " + x + "\n");
-        //System.out.print("y: " + y + "\n");
 
         updateStringBoard();
     }
 
     /**
-     * Implements the findGeneralCluster and removeFloatingCluster methods
-     * by inputing the entire first column and last row
+     * Finds all possible floating clusters and removes them
      */
     public void findAndRemoveFloatingCluster(){
         int clusterCount = 0;
 
         for(int i = 0; i < numCols; i++) {
-            findGeneralCluster(numRows - 1, i);
+            findCluster(numRows - 1, i, false);
             removeFloatingCluster();
             clusterCount += floatingClusterCount;
         }
         for(int j = 0; j < numRows; j++) {
-            findGeneralCluster(j, 0);
+            findCluster(j, 0, false);
             removeFloatingCluster();
             clusterCount += floatingClusterCount;
         }
 
         floatingClusterCount = clusterCount;
+    }
+
+    private void removeEmptyRows(){
+        int count;
+
+        // if a row is empty then remove it from the grid and update instance variable
+        for(int j = 0; j < numRows; j ++){
+            count = 0;
+            for(int k = 0; k < numCols; k++){
+                if(grid.get(j).get(k).equals("  ")){
+                    count++;
+                    if(count == numCols){
+                        grid.remove(j);
+                        numRows--;
+                        break;
+                    }
+                }
+            }
+        }
     }
 
     private void resetVisitedToFalse(){
@@ -512,10 +473,6 @@ public class BubbleManager {
 
     public int getFloatingClusterCount() {
         return floatingClusterCount;
-    }
-
-    private void setrNum(int rNum) {
-        this.rNum = rNum;
     }
 
     public void setNumRows(int numRows) {

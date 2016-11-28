@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="df9d2c6f-49ba-4bce-aebb-b66437e1ff40" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/BubbleShooter/BubbleManager.class" afterPath="$PROJECT_DIR$/out/production/BubbleShooter/BubbleManager.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/BubbleShooter/BubbleManagerTest.class" afterPath="$PROJECT_DIR$/out/production/BubbleShooter/BubbleManagerTest.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/BubbleManager.java" afterPath="$PROJECT_DIR$/src/BubbleManager.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/BubbleManagerTest.java" afterPath="$PROJECT_DIR$/src/BubbleManagerTest.java" />
@@ -23,37 +25,34 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="BubbleManager.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="BubbleManager.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/BubbleManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1003">
-              <caret line="375" column="39" lean-forward="false" selection-start-line="375" selection-start-column="39" selection-end-line="375" selection-end-column="39" />
+            <state relative-caret-position="867">
+              <caret line="329" column="5" lean-forward="true" selection-start-line="329" selection-start-column="5" selection-end-line="329" selection-end-column="5" />
               <folding>
                 <element signature="method#BubbleManager#0;class#BubbleManager#0" expanded="false" />
                 <element signature="method#createBoard#0;class#BubbleManager#0" expanded="false" />
                 <element signature="method#addBubble#0;class#BubbleManager#0" expanded="false" />
-                <element signature="method#findGeneralCluster#0;class#BubbleManager#0" expanded="false" />
-                <element signature="method#removeCluster#0;class#BubbleManager#0" expanded="false" />
+                <element signature="method#findCluster#0;class#BubbleManager#0" expanded="false" />
+                <element signature="method#removeMatchingCluster#0;class#BubbleManager#0" expanded="false" />
                 <element signature="method#removeFloatingCluster#0;class#BubbleManager#0" expanded="false" />
                 <element signature="method#findAndRemoveFloatingCluster#0;class#BubbleManager#0" expanded="false" />
+                <element signature="method#removeEmptyRows#0;class#BubbleManager#0" expanded="false" />
                 <element signature="method#resetVisitedToFalse#0;class#BubbleManager#0" expanded="false" />
                 <element signature="method#updateStringBoard#0;class#BubbleManager#0" expanded="false" />
                 <element signature="method#toString#0;class#BubbleManager#0" expanded="false" />
                 <element signature="method#getBubbleType#0;class#BubbleManager#0" expanded="false" />
-                <marker date="1480226881368" expanded="true" signature="1907:2102" ph="/**...*/" />
-                <marker date="1480226881368" expanded="false" signature="2152:8051" ph="{...}" />
-                <marker date="1480226881368" expanded="true" signature="8057:8275" ph="/**...*/" />
-                <marker date="1480226881368" expanded="true" signature="17176:17318" ph="/**...*/" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BubbleManagerTest.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="BubbleManagerTest.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/BubbleManagerTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="67" lean-forward="false" selection-start-line="8" selection-start-column="67" selection-end-line="8" selection-end-column="67" />
+            <state relative-caret-position="612">
+              <caret line="36" column="6" lean-forward="true" selection-start-line="36" selection-start-column="6" selection-end-line="36" selection-end-column="6" />
               <folding />
             </state>
           </provider>
@@ -134,9 +133,9 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="Scratches" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -385,6 +384,14 @@
       <option name="presentableId" value="Default" />
       <updated>1480214690550</updated>
     </task>
+    <task id="LOCAL-00001" summary="Cleaned up a bit and added comments for submission.">
+      <created>1480226935773</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1480226935773</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -406,7 +413,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32947975" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12527716" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12638581" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -454,6 +461,10 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Cleaned up a bit and added comments for submission." />
+    <option name="LAST_COMMIT_MESSAGE" value="Cleaned up a bit and added comments for submission." />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <option name="time" value="3" />
@@ -467,24 +478,50 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/BubbleManager.java">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="method#BubbleManager#0;class#BubbleManager#0" expanded="false" />
+            <element signature="method#createBoard#0;class#BubbleManager#0" expanded="false" />
+            <element signature="method#addBubble#0;class#BubbleManager#0" expanded="false" />
+            <element signature="method#findCluster#0;class#BubbleManager#0" expanded="false" />
+            <element signature="method#removeMatchingCluster#0;class#BubbleManager#0" expanded="false" />
+            <element signature="method#removeFloatingCluster#0;class#BubbleManager#0" expanded="false" />
+            <element signature="method#findAndRemoveFloatingCluster#0;class#BubbleManager#0" expanded="false" />
+            <element signature="method#removeEmptyRows#0;class#BubbleManager#0" expanded="false" />
+            <element signature="method#resetVisitedToFalse#0;class#BubbleManager#0" expanded="false" />
+            <element signature="method#updateStringBoard#0;class#BubbleManager#0" expanded="false" />
+            <element signature="method#toString#0;class#BubbleManager#0" expanded="false" />
+            <element signature="method#getBubbleType#0;class#BubbleManager#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/BubbleManagerTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="67" lean-forward="false" selection-start-line="8" selection-start-column="67" selection-end-line="8" selection-end-column="67" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/BubbleManager.java">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
           <caret line="17" column="21" lean-forward="true" selection-start-line="17" selection-start-column="21" selection-end-line="17" selection-end-column="21" />
           <folding>
             <element signature="method#BubbleManager#0;class#BubbleManager#0" expanded="false" />
             <element signature="method#createBoard#0;class#BubbleManager#0" expanded="false" />
             <element signature="method#addBubble#0;class#BubbleManager#0" expanded="false" />
-            <element signature="method#findGeneralCluster#0;class#BubbleManager#0" expanded="false" />
-            <element signature="method#removeCluster#0;class#BubbleManager#0" expanded="false" />
+            <element signature="method#findCluster#0;class#BubbleManager#0" expanded="false" />
+            <element signature="method#removeMatchingCluster#0;class#BubbleManager#0" expanded="false" />
             <element signature="method#removeFloatingCluster#0;class#BubbleManager#0" expanded="false" />
             <element signature="method#findAndRemoveFloatingCluster#0;class#BubbleManager#0" expanded="false" />
+            <element signature="method#removeEmptyRows#0;class#BubbleManager#0" expanded="false" />
             <element signature="method#resetVisitedToFalse#0;class#BubbleManager#0" expanded="false" />
             <element signature="method#updateStringBoard#0;class#BubbleManager#0" expanded="false" />
             <element signature="method#toString#0;class#BubbleManager#0" expanded="false" />
             <element signature="method#getBubbleType#0;class#BubbleManager#0" expanded="false" />
-            <marker date="1480226881368" expanded="true" signature="1907:2102" ph="/**...*/" />
-            <marker date="1480226881368" expanded="false" signature="2152:8051" ph="{...}" />
-            <marker date="1480226881368" expanded="true" signature="8057:8275" ph="/**...*/" />
-            <marker date="1480226881368" expanded="true" signature="17176:17318" ph="/**...*/" />
           </folding>
         </state>
       </provider>
@@ -497,35 +534,32 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/BubbleManagerTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="612">
+          <caret line="36" column="6" lean-forward="true" selection-start-line="36" selection-start-column="6" selection-end-line="36" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/BubbleManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1003">
-          <caret line="375" column="39" lean-forward="false" selection-start-line="375" selection-start-column="39" selection-end-line="375" selection-end-column="39" />
+        <state relative-caret-position="867">
+          <caret line="329" column="5" lean-forward="true" selection-start-line="329" selection-start-column="5" selection-end-line="329" selection-end-column="5" />
           <folding>
             <element signature="method#BubbleManager#0;class#BubbleManager#0" expanded="false" />
             <element signature="method#createBoard#0;class#BubbleManager#0" expanded="false" />
             <element signature="method#addBubble#0;class#BubbleManager#0" expanded="false" />
-            <element signature="method#findGeneralCluster#0;class#BubbleManager#0" expanded="false" />
-            <element signature="method#removeCluster#0;class#BubbleManager#0" expanded="false" />
+            <element signature="method#findCluster#0;class#BubbleManager#0" expanded="false" />
+            <element signature="method#removeMatchingCluster#0;class#BubbleManager#0" expanded="false" />
             <element signature="method#removeFloatingCluster#0;class#BubbleManager#0" expanded="false" />
             <element signature="method#findAndRemoveFloatingCluster#0;class#BubbleManager#0" expanded="false" />
+            <element signature="method#removeEmptyRows#0;class#BubbleManager#0" expanded="false" />
             <element signature="method#resetVisitedToFalse#0;class#BubbleManager#0" expanded="false" />
             <element signature="method#updateStringBoard#0;class#BubbleManager#0" expanded="false" />
             <element signature="method#toString#0;class#BubbleManager#0" expanded="false" />
             <element signature="method#getBubbleType#0;class#BubbleManager#0" expanded="false" />
-            <marker date="1480226881368" expanded="true" signature="1907:2102" ph="/**...*/" />
-            <marker date="1480226881368" expanded="false" signature="2152:8051" ph="{...}" />
-            <marker date="1480226881368" expanded="true" signature="8057:8275" ph="/**...*/" />
-            <marker date="1480226881368" expanded="true" signature="17176:17318" ph="/**...*/" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/BubbleManagerTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="67" lean-forward="false" selection-start-line="8" selection-start-column="67" selection-end-line="8" selection-end-column="67" />
-          <folding />
         </state>
       </provider>
     </entry>
